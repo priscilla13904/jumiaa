@@ -1,6 +1,12 @@
 from flask import*
 import pymysql
+from functions import *
+from mpesa import *
+
+
 app=Flask(__name__)
+# session key 
+app.secret_key="!@#$%"
 @app.route("/")
 def Homepage():
     # connect to db
@@ -124,8 +130,8 @@ def Uploadfashion():
         cursor=connection.cursor()
 
         sql="INSERT INTO products(product_name, product_desc, product_cost, product_category, product_image_name) values(%s,%s,%s,%s,%s)"
-        data =(product_name,product_desc,product_cost,product_category,product_image_name.filename)
         # execute
+        data=(product_name, product_desc, product_cost, product_category, product_image_name)
         cursor.execute(sql,data)
         # save changes
         connection.commit()
@@ -137,6 +143,50 @@ def Uploadfashion():
         return render_template("uploadfashion.html",error="please add a fashion")
 
 # user registration
+@app.route("/register", methods=['POST','GET'])
+def Register():
+    if request.method =='POST':
+        # user can add the products
+        username= request.form['username']
+
+        email= request.form['email']
+        gender= request.form['gender']
+        phone= request.form['phone']
+        password= request.form['password']
+
+        # # validate user password
+        # response =is_valid_password(password)
+        # if response == True:
+        #     # password met all the condition
+
+        # else:
+        #     # password did not meet all the conditions
+        #    return render_template("register.html",message="register added successfully")
+        
+        # connect to db
+        connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+        # create a cursor
+        cursor=connection.cursor()
+
+        sql="INSERT INTO `users`( `username`, `email`, `gender`, `phone`, `password`) values(%s,%s,%s,%s,%s)"
+        data=(username,email,gender,phone,password)
+        # execute
+        cursor.execute(sql,data)
+        # save changes
+        connection.commit()
+
+
+        return render_template("register.html",message="register added successfully")
+
+    else:
+        return render_template("register.html",error="please register")
+    
+
+
+
+
+
+
 
 
 
@@ -145,15 +195,53 @@ def Uploadfashion():
 @app.route("/about")
 def About():
     return"this is about page"
-@app.route("/register")
-def Register():
-    return"this is register page"
-@app.route("/login")
+
+@app.route("/login",methods=['POST','GET'])
 def Login():
-    return"this is login page"
+     if request.method =='POST':
+        # user can add the products
+        
+        email= request.form['email']
+        
+        password= request.form['password']
+
+        
+        # connect to db
+        connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+        # create a cursor
+        cursor=connection.cursor()
+
+        sql="select * from users users where email = %s and password =%s"
+        data=(email,password)
+        # execute
+        cursor.execute(sql,data)
+        # save changes
+        if cursor.rowcount ==0:
+         return render_template("login.html",error ="invalid login credentials")
+        else:
+            session['key']=email
+            return redirect("/")
+     else:
+      return render_template("login.html")
+     
+    #  mpesa
+# implements stk push
+@app.route("/mpesa",methods=['POST'])
+def Mpesa():
+    phone=request.form["phone"] 
+    amount=request.form["amount"] 
+    # use mpesa_payment function from mpesa.py
+    # it accepts the phone and amount as arguments
+    mpesa_payment(amount,phone)
+    return'<h1> please complete payment in your phone</h1>' \
+    '<a href="/" class=btn btn-dark btn-sm> GO BACK to products</a>'   
+     
+
+                                              
 @app.route("/logout")
 def Logout():
-    return"this is the logout page"
+    session.clear()
+    return redirect("/login")
 
 
 if __name__=="__main__":

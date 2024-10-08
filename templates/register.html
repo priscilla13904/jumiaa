@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <script src="../static/js/bootstrap.js"></script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <form action="/register"method="post">
+        <label for="">username</label>
+        <input type="text" class="form-control" name="username" required><br>
+        <label for="">Email</label>
+        <input type="email" class="form-control" name="email" required><br>
+        <label for="">gender</label>
+        <select name="gender" id="" class="form-control" required>
+          <option value="female">female</option>
+          <option value="male">male</option>
+        </select><br>
+        <label for="">phone</label>
+        <input type="tel" class="form-control" name="phone" required><br>
+        <label for="">password</label>
+        <input type="password" class="form-control" name="password" required><br>
+        <a href="/login">Already have an account? click to login</a>
+        <button type="submit" class="btn btn-primary">Register</button>
+
+
+      </form> 
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <script src="../static/js/bootstrap.js"></script>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <b class="text-success">{{ message }}</b>
+    <b class="text-success">{{ error }}</b>
+
+    <form action="/login"method="post">
+        
+        <label for="">Email</label>
+        <input type="email" class="form-control" name="email" required><br>
+        
+        <label for="">password</label>
+        <input type="password" class="form-control" name="password" required><br>
+        <a href="/register">Don't have an account? click to register</a>
+        <button type="submit" class="btn btn-primary">Login</button>
+
+
+      </form> 
+</body>
+</html>
