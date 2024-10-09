@@ -10,7 +10,7 @@ app.secret_key="!@#$%"
 @app.route("/")
 def Homepage():
     # connect to db
-    connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+    connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
     sql="SELECT * FROM `products` WHERE `product_category` ='phones'  "
     sql1="SELECT * FROM `products` WHERE `product_category` ='electronics'  "
     sql2="SELECT * FROM `products` WHERE `product_category` ='beauty'  "
@@ -36,7 +36,7 @@ def Homepage():
 @app.route("/single/<product_id>")
 def singleitem(product_id):
     # connection
-     connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+     connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
     #  create sql query
      sql = "SELECT * FROM `products` WHERE `product_id`=%s"
     #  create a cursor
@@ -59,7 +59,7 @@ def Upload():
         product_image_name= request.files['product_image_name']
         product_image_name.save('static/images/' + product_image_name.filename)
         # connect to db
-        connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+        connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
         # create a cursor
         cursor=connection.cursor()
 
@@ -81,7 +81,7 @@ def Upload():
 @app.route("/fashion")
 def Fashion():
     # connect to db
-    connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+    connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
     sql="SELECT * FROM `products` WHERE `product_category` ='dresses'  "
     sql1="SELECT * FROM `products` WHERE `product_category` ='handbags'  "
     sql2="SELECT * FROM `products` WHERE `product_category` ='cap'  "
@@ -125,7 +125,7 @@ def Uploadfashion():
         product_image_name= request.files['product_image_name']
         product_image_name.save('static/images/' + product_image_name.filename)
         # connect to db
-        connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+        connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
         # create a cursor
         cursor=connection.cursor()
 
@@ -164,7 +164,7 @@ def Register():
         #    return render_template("register.html",message="register added successfully")
         
         # connect to db
-        connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+        connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
         # create a cursor
         cursor=connection.cursor()
 
@@ -207,7 +207,7 @@ def Login():
 
         
         # connect to db
-        connection=pymysql.connect(host='localhost',user='root',password='',database='jumiaa')
+        connection=pymysql.connect(host='priscilla13904.mysql.pythonanywhere-services.com',user='priscilla13904',password='vision2030..',database='priscilla13904$default')
         # create a cursor
         cursor=connection.cursor()
 
